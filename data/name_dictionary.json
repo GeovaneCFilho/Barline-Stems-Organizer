@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "status": "rascunho: ajustar com os nomes das suas pastas reais na Etapa 2",
+  "language": [
+    "en",
+    "pt-BR"
+  ],
+  "groups": {
+    "Drums": {
+      "color_name": "laranja",
+      "color_hex": "#F28C28",
+      "terms": [
+        "kick",
+        "bd",
+        "bumbo",
+        "clap",
+        "palma",
+        "palmas",
+        "snare",
+        "caixa",
+        "hat",
+        "hats",
+        "hihat",
+        "hi hat",
+        "chimbal",
+        "ch",
+        "oh",
+        "open hat",
+        "closed hat",
+        "perc",
+        "percs",
+        "percussion",
+        "percussao",
+        "tom",
+        "toms",
+        "rim",
+        "rimshot",
+        "shaker",
+        "tamborim",
+        "crash",
+        "ride",
+        "cymbal",
+        "prato",
+        "drum",
+        "drums",
+        "bateria",
+        "break",
+        "fill"
+      ]
+    },
+    "Bass": {
+      "color_name": "vermelho",
+      "color_hex": "#E5484D",
+      "terms": [
+        "sub",
+        "sub bass",
+        "bass",
+        "baixo",
+        "bassline",
+        "reese",
+        "808"
+      ]
+    },
+    "Melodic": {
+      "color_name": "azul",
+      "color_hex": "#3E8EF7",
+      "terms": [
+        "piano",
+        "keys",
+        "teclado",
+        "pluck",
+        "plucks",
+        "lead",
+        "arp",
+        "arpejo",
+        "chord",
+        "chords",
+        "acorde",
+        "acordes",
+        "stab",
+        "stabs",
+        "guitar",
+        "guitarra",
+        "violao",
+        "bell",
+        "bells",
+        "sino",
+        "melody",
+        "melodia",
+        "strings",
+        "cordas",
+        "brass",
+        "sopro",
+        "organ",
+        "orgao"
+      ]
+    },
+    "Atmosphere": {
+      "color_name": "roxo",
+      "color_hex": "#9B6BDF",
+      "terms": [
+        "pad",
+        "pads",
+        "fx",
+        "sfx",
+        "texture",
+        "textura",
+        "ambience",
+        "ambient",
+        "ambiente",
+        "atmos",
+        "atmosphere",
+        "atmosfera",
+        "riser",
+        "subida",
+        "impact",
+        "impacto",
+        "sweep",
+        "noise",
+        "ruido",
+        "drone",
+        "whoosh",
+        "reverse",
+        "reversa",
+        "downlifter"
+      ]
+    },
+    "Vocals": {
+      "color_name": "verde",
+      "color_hex": "#3FB950",
+      "terms": [
+        "vocal",
+        "vocals",
+        "vocais",
+        "vox",
+        "voz",
+        "voice",
+        "chop",
+        "chops",
+        "adlib",
+        "ad lib",
+        "backing",
+        "bv",
+        "harmony",
+        "harmonia",
+        "coro",
+        "choir",
+        "rap",
+        "acapella",
+        "acapela"
+      ]
+    }
+  },
+  "normalization": {
+    "steps": [
+      "remover a extensão (.wav)",
+      "remover acentos e passar para minúsculas",
+      "trocar _ - . ( ) [ ] por espaço",
+      "separar letras de números colados (sub808 vira sub 808)",
+      "remover números soltos (03, 7, 2) e sufixos de versão (v2, final, dry, copy), exceto números que são termos do dicionário (808)",
+      "remover prefixos genéricos (lista abaixo)",
+      "juntar espaços repetidos e separar em palavras (tokens)"
+    ],
+    "generic_prefixes": [
+      "audio",
+      "track",
+      "mixer",
+      "insert",
+      "render",
+      "export",
+      "stem",
+      "channel",
+      "canal",
+      "faixa"
+    ],
+    "version_suffixes": [
+      "final",
+      "dry",
+      "wet",
+      "copy",
+      "copia",
+      "old",
+      "new",
+      "temp",
+      "bounce",
+      "v1",
+      "v2",
+      "v3"
+    ],
+    "number_like_tokens_regex": "^[0-9]+$|^v[0-9]+$"
+  },
+  "matching_rules": {
+    "how": "juntar todos os termos que casam (frase de 2 palavras ou palavra solta) e olhar os grupos encontrados",
+    "one_group": "se todos os termos são do mesmo grupo, esse é o grupo",
+    "several_groups": "se há grupos diferentes, vale a ordem de prioridade abaixo",
+    "priority_when_several": [
+      "Vocals",
+      "Drums",
+      "Bass",
+      "Melodic",
+      "Atmosphere"
+    ],
+    "no_match": "Unclassified",
+    "examples": {
+      "vox lead": "Vocals (vox ganha de lead)",
+      "kick 808": "Drums (Drums ganha de Bass)",
+      "sub kick": "Drums",
+      "sub808": "Bass",
+      "synth 1": "Unclassified (só palavra ambígua)"
+    }
+  },
+  "unclassified_when": [
+    "o nome só tem palavras genéricas (synth, sample, loop, master, mix, audio, track, stem) e números",
+    "nenhum termo casa",
+    "há empate entre grupos que a regra de prioridade não resolve"
+  ],
+  "ambiguous_words": [
+    "synth",
+    "sample",
+    "loop",
+    "master",
+    "mix",
+    "stem",
+    "audio",
+    "track",
+    "inst",
+    "instrumental"
+  ],
+  "goal": {
+    "metric": "grupo certo sugerido em pelo menos 80% dos nomes reais (meta proposta)",
+    "measured_against": "campo 'group' do gabarito de cada pasta"
+  }
+}

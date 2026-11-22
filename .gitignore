@@ -1,0 +1,10 @@
+build/
+out/
+.vs/
+.idea/
+*.user
+__pycache__/
+*.pyc
+test_data/synthetic/
+test_data/real/*.wav
+test_data/real/*/
